@@ -1,0 +1,42 @@
+package com.elopez.almacen.core.models.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Date;
+
+@Entity
+@Table(name = "detalle_compra")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class DetalleCompra implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_detalle")
+    private Long idDetalle;
+
+
+    @NotEmpty(message = "Debe agregar id de compra")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_compra")
+    private  Compra compra;
+
+    @NotEmpty(message = "Debe agregar codigo producto")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "codigo_producto")
+    private  Producto producto;
+
+    @NotEmpty(message = "Debe agregar cantidad de compra")
+    @Column(name = "cantidad")
+    private Long cantidad;
+
+    @NotEmpty(message = "Debe agregar precio de compra")
+    @Column(name = "precio")
+    private Double precio;
+}
